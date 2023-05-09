@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="style.css">
+  <title>Vote Beecoming</title>
+</head>
+<body>
+  <h2>Vote pour le gâteau de jeudi</h2>
+  <button onclick="lancerVote()">Lancer le vote</button>
+  <div id="resultat"></div>
+
+  <script>
+    function lancerVote() {
+      var participants = 15; // Nombre de votants
+      var gateaux = ['Madeleine nature et citron', 'Gâteau chocolat-banane', 'Cookies aux pépites de chocolat']; // Type de gâteau
+      var votes = {}; // Objet vide
+
+      // Générer des votes aléatoires
+      for (var i = 0; i < participants; i++) { 
+        var choixAleatoire = Math.floor(Math.random() * gateaux.length); // Génère nombre aléatoire entre 0 et longueur du tableau gateaux
+        var gateauChoisi = gateaux[choixAleatoire]; // Récupère le gâteau de l'index choisi au dessus
+
+        // Enregistrer le vote
+        if (votes.hasOwnProperty(gateauChoisi)) { // Gateau choisi au dessus déjà choisi?
+          votes[gateauChoisi]++; // alors on rajoute 1
+        } else {
+          votes[gateauChoisi] = 1; // alors on initialise à 1
+        }
+      }
+
+      // Afficher les résultats
+      var resultatHTML = ''; // chaîne de caractères vide
+      for (var j = 0; j < gateaux.length; j++) {
+        var gateau = gateaux[j]; // récupère le gateau courant à l'index j 
+        var nombreVotes = votes[gateau] || 0; // récupère nb de votes au gateau choisi à la ligne au dessus
+        resultatHTML += '<h3>' + gateau + '</h3>';
+        resultatHTML += '<p>Nombre de votes : ' + nombreVotes + '</p>';
+      }
+
+      document.getElementById('resultat').innerHTML = resultatHTML; // Affichage dans le DOM Html
+    }
+  </script>
+</body>
+</html>
